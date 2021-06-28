@@ -1,10 +1,11 @@
 let initialState = {
   categories: [
-    { normalizedName: "food", displayName: "Food", description: "asdasdasdasdasdsdasdsad" },
+    { normalizedName: "food", displayName: "Food", description: "ssssss" },
+    { normalizedName: "clothes", displayName: "Clothes", description: "dddddddd" },
     {
       normalizedName: "electronics",
       displayName: "Electronics",
-      description: "asdasdasdasdasd",
+      description: "aaaaa",
     },
   ],
   activeCategory: "none",

@@ -1,5 +1,7 @@
 import React from "react";
 import { connect } from "react-redux";
+import { useDispatch } from "react-redux";
+import { addToCart } from "../store/ProductsStore";
 import {
   Card,
   CardMedia,
@@ -23,15 +25,16 @@ const useStyles = makeStyles({
 
 function Products(props) {
   const classes = useStyles();
+
   return (
     <>
       {props.Pro.map((item, idx) => {
+        if (item.inventoryCount === 0) {
+          return;
+        }
+
         return (
           <>
-            {/* <Typography gutterBottom variant="h5" component="h2">
-              {props.categories.find( ).description}
-            </Typography> */}
-
             <Card key={idx} className={classes.root}>
               <CardMedia className={classes.media} image={item.image} />
               <CardContent>
@@ -43,7 +46,11 @@ function Products(props) {
                 </Typography>
               </CardContent>
               <CardActions>
-                <Button size="small" color="primary">
+                <Button
+                  size="small"
+                  color="primary"
+                  onClick={() => props.addToCart(item)}
+                >
                   Add to Cart
                 </Button>
                 <Button size="small" color="primary">
@@ -63,4 +70,6 @@ const mapStateToProps = (state) => ({
   categories: state.CatReducer.categories,
 });
 
-export default connect(mapStateToProps)(Products);
+const mapDispatchToProps = { addToCart };
+
+export default connect(mapStateToProps, mapDispatchToProps)(Products);
