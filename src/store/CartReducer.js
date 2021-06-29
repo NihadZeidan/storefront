@@ -11,7 +11,7 @@ const CartReducer = (state = myCart, action) => {
       if (!state.cart.includes(payload._id)) {
         myNewCart = [...state.cart, payload];
       }
-      return { cart: myNewCart };
+      return { ...state, cart: myNewCart };
 
     case "PUT_REMOVE":
       let newCart = state.cart.filter((item) => {
