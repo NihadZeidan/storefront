@@ -23,7 +23,7 @@ const Cart = (props) => {
                 return (
                   <>
                     <MenuItem>
-                      {item.name} ({item.cartCount}) &nbsp;{" "}
+                      {item.name} &nbsp;{" "}
                       <BackspaceIcon
                         onClick={() =>
                           props.updateRemoteDataAfterDeleteFromCart(
