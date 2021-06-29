@@ -1,6 +1,7 @@
 import React from "react";
 import { connect, useSelector } from "react-redux";
-import { remove } from "../store/CartReducer";
+// import { remove } from "../store/CartReducer";
+import { updateRemoteDataAfterDeleteFromCart } from "../store/action";
 
 import Button from "@material-ui/core/Button";
 import Menu from "@material-ui/core/Menu";
@@ -22,8 +23,16 @@ const Cart = (props) => {
                 return (
                   <>
                     <MenuItem>
-                      {item.name} &nbsp;{" "}
-                      <BackspaceIcon onClick={() => props.remove(item)} />
+                      {item.name} ({item.cartCount}) &nbsp;{" "}
+                      <BackspaceIcon
+                        onClick={() =>
+                          props.updateRemoteDataAfterDeleteFromCart(
+                            item._id,
+                            item.inventoryCount,
+                            item.cartCount
+                          )
+                        }
+                      />
                     </MenuItem>
                   </>
                 );
@@ -40,5 +49,7 @@ const mapStateToProps = (state) => ({
   UserCart: state.CartReducer,
 });
 
-const mapDispatchToProps = { remove };
+const mapDispatchToProps = {
+  updateRemoteDataAfterDeleteFromCart,
+};
 export default connect(mapStateToProps, mapDispatchToProps)(Cart);

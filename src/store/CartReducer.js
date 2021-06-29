@@ -4,19 +4,16 @@ let myCart = {
 
 const CartReducer = (state = myCart, action) => {
   let { type, payload } = action;
+  let myNewCart = [];
 
   switch (type) {
-    case "addToCart":
-      if (!state.cart.includes(payload)) {
-        state.cart.push(payload);
-        payload.cartCount = 1;
-      } else if (payload.inventoryCount > 0) {
-        state.cart.push(payload);
-        payload.cartCount++;
+    case "PUT":
+      if (!state.cart.includes(payload._id)) {
+        myNewCart = [...state.cart, payload];
       }
-      return { ...state };
+      return { cart: myNewCart };
 
-    case "RemoveItem":
+    case "PUT_REMOVE":
       let newCart = state.cart.filter((item) => {
         return item.name !== payload.name;
       });
@@ -28,10 +25,4 @@ const CartReducer = (state = myCart, action) => {
   }
 };
 
-export const remove = (payload) => {
-  return {
-    type: "RemoveItem",
-    payload: payload,
-  };
-};
 export default CartReducer;
