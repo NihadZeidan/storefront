@@ -1,7 +1,9 @@
 import React from "react";
 import { connect } from "react-redux";
 import { useDispatch } from "react-redux";
-import { addToCart } from "../store/ProductsStore";
+// import { addToCart } from "../store/ProductsStore";
+import { updateRemoteData } from "../store/action";
+
 import {
   Card,
   CardMedia,
@@ -29,7 +31,7 @@ function Products(props) {
   return (
     <>
       {props.Pro.map((item, idx) => {
-        if (item.inventoryCount === 0) {
+        if (item.inventoryCount == 0) {
           return;
         }
 
@@ -44,12 +46,15 @@ function Products(props) {
                 <Typography variant="body2" color="textSecondary" component="p">
                   {item.description} {item.price}$
                 </Typography>
+                <Typography variant="body2" color="textSecondary" component="p">
+                  Quantity Available: {item.inventoryCount}
+                </Typography>
               </CardContent>
               <CardActions>
                 <Button
                   size="small"
                   color="primary"
-                  onClick={() => props.addToCart(item)}
+                  onClick={() => props.updateRemoteData(item)}
                 >
                   Add to Cart
                 </Button>
@@ -70,6 +75,6 @@ const mapStateToProps = (state) => ({
   categories: state.CatReducer.categories,
 });
 
-const mapDispatchToProps = { addToCart };
+const mapDispatchToProps = { updateRemoteData };
 
 export default connect(mapStateToProps, mapDispatchToProps)(Products);

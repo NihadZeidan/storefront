@@ -1,6 +1,8 @@
 import React from "react";
 import { connect } from "react-redux";
 import { activeCat } from "../store/CategoryStore";
+import { getRemoteData } from "../store/action";
+import { useEffect } from "react";
 
 import Paper from "@material-ui/core/Paper";
 import { makeStyles } from "@material-ui/core/styles";
@@ -16,6 +18,10 @@ const useStyles = makeStyles({
 });
 
 const Category = (props) => {
+  useEffect(() => {
+    props.getRemoteData();
+  }, []);
+
   const classes = useStyles();
 
   return (
@@ -30,7 +36,7 @@ const Category = (props) => {
               <>
                 <Tab
                   color="info"
-                  label={category.displayName}
+                  label={category}
                   key={idx}
                   onClick={() => props.activeCat(category)}
                 />
@@ -47,6 +53,6 @@ const mapStateToProps = (state) => ({
   categories: state.CatReducer.categories,
 });
 
-const mapDispatchToProps = { activeCat };
+const mapDispatchToProps = { activeCat, getRemoteData };
 
 export default connect(mapStateToProps, mapDispatchToProps)(Category);

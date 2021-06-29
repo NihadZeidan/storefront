@@ -1,13 +1,5 @@
 let initialState = {
-  categories: [
-    { normalizedName: "food", displayName: "Food", description: "ssssss" },
-    { normalizedName: "clothes", displayName: "Clothes", description: "dddddddd" },
-    {
-      normalizedName: "electronics",
-      displayName: "Electronics",
-      description: "aaaaa",
-    },
-  ],
+  categories: [],
   activeCategory: "none",
 };
 
@@ -15,6 +7,18 @@ export default (state = initialState, action) => {
   let { type, payload } = action;
 
   switch (type) {
+    case "GET":
+      let uniqueCat = [];
+
+      for (let category of payload) {
+        if (!uniqueCat.includes(category.category)) {
+          uniqueCat.push(category.category);
+        }
+      }
+      return {
+        categories: [...uniqueCat],
+        activeCategory: state.activeCategory,
+      };
     case "ACTIVE":
       return {
         categories: state.categories,
