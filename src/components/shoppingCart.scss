@@ -1,0 +1,57 @@
+body {
+  font-family: cursive;
+}
+.payingFrom {
+  margin-top: 8%;
+  margin-bottom: 8%;
+  width: 70%;
+  display: grid;
+  grid-template-columns: auto auto auto;
+
+  .btn {
+    width: 80%;
+    height: 15%;
+    margin-top: 50%;
+  }
+
+  .date {
+    margin-bottom: 1%;
+  }
+
+  legend {
+    margin-bottom: 2%;
+    margin-top: 2%;
+  }
+}
+
+h2 {
+  text-align: center;
+  font-size: 3em;
+}
+
+.productInfo {
+  width: 70%;
+  margin: auto;
+  text-align: center;
+  p {
+    display: inline-block;
+    font-weight: bolder;
+    font-size: 1.5em;
+    text-align: left;
+  }
+
+  p:nth-of-type(3) {
+    text-align: right;
+    display: inline-block;
+    font-size: 1.5em;
+    width: 30%;
+    margin: auto;
+  }
+}
+
+.total {
+  text-align: center;
+  font-size: 2em;
+  margin: auto;
+  margin-top: 2%;
+}

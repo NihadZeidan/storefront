@@ -1,14 +1,17 @@
 import ReactDOM from "react-dom";
 import App from "./app";
+import { BrowserRouter } from "react-router-dom";
 import { Provider } from "react-redux";
-import store from "./store/index";
+import myStore from "./store/index";
 
 function All() {
   return (
     <>
-      <Provider store={store}>
-        <App />
-      </Provider>
+      <BrowserRouter>
+        <Provider store={myStore}>
+          <App />
+        </Provider>
+      </BrowserRouter>
     </>
   );
 }
