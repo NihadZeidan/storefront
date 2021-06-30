@@ -1,8 +1,10 @@
 import React from "react";
-import { connect } from "react-redux";
-import { useDispatch } from "react-redux";
-// import { addToCart } from "../store/ProductsStore";
-import { updateRemoteData } from "../store/action";
+import "./SASS/products.scss";
+import { Link } from "react-router-dom";
+// import { connect } from "react-redux";
+import { updateRemoteData } from "../store/CategoryStore";
+import { details } from "../store/CategoryStore";
+import { useSelector, useDispatch } from "react-redux";
 
 import {
   Card,
@@ -28,9 +30,19 @@ const useStyles = makeStyles({
 function Products(props) {
   const classes = useStyles();
 
+  const state = useSelector((state) => {
+    return {
+      Pro: state.Category.productsList,
+      categories: state.Category.categories,
+    };
+  });
+
+  const dispatch = useDispatch();
+
   return (
-    <>
-      {props.Pro.map((item, idx) => {
+    <div className="mainCards">
+      {" "}
+      {state.Pro.map((item, idx) => {
         if (item.inventoryCount == 0) {
           return;
         }
@@ -54,27 +66,27 @@ function Products(props) {
                 <Button
                   size="small"
                   color="primary"
-                  onClick={() => props.updateRemoteData(item)}
+                  onClick={() => dispatch(updateRemoteData(item))}
                 >
                   Add to Cart
                 </Button>
-                <Button size="small" color="primary">
-                  View Details
-                </Button>
+
+                <Link to="/products/details">
+                  <Button
+                    size="small"
+                    color="primary"
+                    onClick={() => dispatch(details(item._id))}
+                  >
+                    View Details
+                  </Button>
+                </Link>
               </CardActions>
             </Card>
           </>
         );
       })}
-    </>
+    </div>
   );
 }
 
-const mapStateToProps = (state) => ({
-  Pro: state.ProductReducer.productsList,
-  categories: state.CatReducer.categories,
-});
-
-const mapDispatchToProps = { updateRemoteData };
-
-export default connect(mapStateToProps, mapDispatchToProps)(Products);
+export default Products;

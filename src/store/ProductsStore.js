@@ -1,51 +1,90 @@
-let initialProductState = {
-  products: [],
-  productsList: [],
-};
+// import { createSlice } from "@reduxjs/toolkit";
 
-const ProductReducer = (state = initialProductState, action) => {
-  let { type, payload } = action;
+// import superagent from "superagent";
 
-  switch (type) {
-    case "GET":
-      return {
-        products: payload,
-        productsList: [],
-      };
+// const myApi = "https://nihad-api-server.herokuapp.com/product";
 
-    case "PUT":
-      let newList = state.productsList.map((product) => {
-        if (payload._id === product._id) {
-          product.inventoryCount--;
-          product.cartCount++;
-        }
-        return product;
-      });
+// const ProductSlice = createSlice({
+//   name: "Product",
+//   initialState: {
+//     products: [],
+//     productsList: [],
+//     details: [],
+//   },
+//   reducers: {
+//     GET(state, action) {
+//       state.products.push(action.payload);
+//       console.log(action.payload)
+//     },
 
-      return { ...state, productsList: newList };
+//     PUT(state, action) {
+//       state.productsList.forEach((product) => {
+//         if (action.payload._id === product._id) {
+//           product.inventoryCount--;
+//           product.cartCount++;
+//         }
+//       });
+//     },
 
-    case "ACTIVE":
-      state.productsList = [];
-      state.products.forEach((product) => {
-        if (product.category === payload) {
-          state.productsList.push(product);
-        }
-      });
-      return { ...state };
+//     ACTIVE(state, action) {
+//       let products = []
+//       state.products.forEach((product) => {
+//         if (product.category === action.payload) {
+//           products.push(product);
+//         }
+//       });
+//       state.productsList = products
+//     },
 
-    case "PUT_REMOVE":
-      let updateInventory = state.productsList.map((product) => {
-        if (payload._id === product._id) {
-          product.inventoryCount = product.cartCount + product.inventoryCount;
-          product.cartCount = 0;
-        }
-        return product;
-      });
-      return { ...state, productsList: updateInventory };
+//     PUT_REMOVE(state, action) {
+//       state.productsList.forEach((product) => {
+//         if (action.payload._id === product._id) {
+//           product.inventoryCount = product.cartCount + product.inventoryCount;
+//           product.cartCount = 0;
+//         }
+//       });
+//     },
 
-    default:
-      return state;
-  }
-};
+//     details(state, action) {
+//       let targetedProduct = state.productsList.filter((item) => {
+//         return item._id == action.payload;
+//       });
+//       state.details.push(targetedProduct);
+//     },
+//   },
+// });
 
-export default ProductReducer;
+// export const { details, PUT_REMOVE, ACTIVE, PUT, GET } = ProductSlice.actions;
+// export default ProductSlice.reducer;
+
+// export const getRemoteData = () => (dispatch, state) => {
+//   superagent.get(myApi).then((res) => {
+//     dispatch(GET(res.body));
+//   });
+// };
+
+// export const updateRemoteData = (item) => (dispatch, state) => {
+//   superagent
+//     .put(`${myApi}/${item._id}`)
+//     .send({
+//       inventoryCount: item.inventoryCount - 1,
+//       cartCount: item.cartCount + 1,
+//     })
+//     .then((res) => {
+//       dispatch(PUT(res.body));
+//     });
+// };
+
+// export const updateRemoteDataAfterDeleteFromCart =
+//   (id, inventoryCount, cartCount) => (dispatch, state) => {
+//     superagent
+//       .put(`${myApi}/${id}`)
+//       .send({
+//         inventoryCount: cartCount + inventoryCount,
+//         cartCount: 0,
+//       })
+//       .then((res) => {
+//         dispatch(PUT_REMOVE(res.body));
+//       });
+//   };
+
