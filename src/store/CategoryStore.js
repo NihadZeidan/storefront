@@ -60,10 +60,11 @@ const CategorySlice = createSlice({
     },
 
     details(state, action) {
-      let targetedProduct = state.productsList.filter((item) => {
-        return item._id == action.payload;
+      let targetedProduct = state.productsList.find((item) => {
+        return item._id === action.payload;
       });
-      state.details.push(...targetedProduct);
+      state.details = [];
+      state.details.push(targetedProduct);
     },
   },
 });
